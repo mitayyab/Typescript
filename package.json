@@ -1,0 +1,25 @@
+{
+  "name": "typescript-practice",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "build": "tsc",
+    "test": "jasmine"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/M-Ibrahim-Tayyab/Typescript.git"
+  },
+  "author": "Muhammad Ibrahim Tayyab",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/M-Ibrahim-Tayyab/Typescript/issues"
+  },
+  "homepage": "https://github.com/M-Ibrahim-Tayyab/Typescript#readme",
+  "devDependencies": {
+    "@types/jasmine": "^4.3.5",
+    "jasmine": "^5.1.0",
+    "typescript": "^5.1.6"
+  }
+}
