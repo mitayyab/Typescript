@@ -1,71 +1,85 @@
-type Student = {
+export type Student = {
     id: number;
     name: string;
     score: number;
 }
 
-const students: Student[] = [
-    { id: 1, name: 'Alice', score: 88 },
-    { id: 2, name: 'Bob', score: 72 },
-    { id: 3, name: 'Charlie', score: 95 },
-    { id: 4, name: 'David', score: 50 },
-    { id: 5, name: 'Eva', score: 76 }
-];
+// //map
+// //---------------------------------------------//
 
-//map
-//---------------------------------------------//
-const studentsName = students.map((student)=>student.name);
-console.log("Name of students : ", studentsName)
-
-const incrementScore = students.map((student)=>student.score += student.score * 0.05);
-console.log("Incremented score : ", incrementScore)
-//---------------------------------------------//
-
-
-//reduce
-//---------------------------------------------//
-const totalScore = students.reduce(((accumulatingScore, student)=> accumulatingScore += student.score),0);
-console.log("Total score : ", totalScore)
-
-const avgScore = totalScore / students.length
-console.log("Average score : ", avgScore)
-
-//---------------------------------------------//
-function reducer (allNames:string, student:Student) :string {
-    return allNames = allNames + "," + student.name;
+export function studentNames(students: Student[]) : String[]{
+    return students.map((student)=>student.name);
 }
 
-const reducer1 = (allNames:string, student:Student) : string => {
-    return allNames = allNames + "," + student.name
+export function incrementScores(students: Student[]) : Student[] {
+    return students.map((student: Student)=> ({...student, score: student.score + 0.05 * student.score}));
 }
 
-const reducer2 = (allNames:string, student:Student) : string => allNames = allNames + "," + student.name
+// //---------------------------------------------//
 
-const names = students.reduce(reducer, "");
-console.log("scores : ", names)
 
-//---------------------------------------------//
+// //reduce
+// //---------------------------------------------//
+export function getTotalScore(students: Student[]) : number {
+    return students.reduce(((accumulatingScore, student)=> accumulatingScore + student.score),0);
+}
+
+export function getAvgScore(students: Student[]) : number{
+    return getTotalScore(students)/students.length
+}
+// //---------------------------------------------//
+
+export function getAllNames(students: Student[]) : string {
+    // function reducer (allNames:string, student:Student) :string {
+    //     return allNames = allNames + "," + student.name;
+    // }
+    
+    // const reducer1 = (allNames:string, student:Student) : string => {
+    //     return allNames = allNames + "," + student.name
+    // }
+    
+    // const reducer2 = (allNames:string, student:Student) : string => allNames = allNames + "," + student.name
+    
+    // return students.reduce(reducer, "");
+
+    // return students
+    // .map((student: Student)=> student.name)
+    // .join(", ");
+
+    return students.reduce((accumulator : string, student : Student, i:number)=> accumulator + student.name + (i < students.length - 1 ? ", ": ""), "");
+}
+
+// //---------------------------------------------//
 interface Scores {
-    [name: string]: Number;
+    [name: string]: number;
 }
 
-const dictMaker = (acc:Scores, student:Student) => {
-    acc[student.name] = student.score;
-    return acc;
+// export function dictMaker1(students: Student[]){
+//     return students.reduce((studentDict : Scores, student : Student)=> ({...studentDict, []: }), {}); // 2 operations cannot be done in a single line here assignment and return are occuring, note that assignment does not give us something to return hence dont work
+// } 
+
+// export function dictMaker(students: Student[]): Scores{
+//     return students.reduce((studentDict : Scores, student : Student)=> ({...studentDict, [student.name]: student.score}), {}); // this is alternate to above one 
+// }
+
+export function dictMaker(students: Student[]): Scores{
+    return students.reduce((studentDict : Scores, student : Student)=> {
+        studentDict[student.name] = student.score;
+        return studentDict;
+    }, {});
 }
 
-const dictionary = students.reduce(dictMaker, {});
-console.log("scores : ", dictionary)
-
-//some
-//---------------------------------------------//
-const anyFailed = students.some((student)=>student.score < 60);
-console.log("Any one failed : ", anyFailed)
-//---------------------------------------------//
+// //some
+// //---------------------------------------------//
+export function didAnyFail(students: Student[]) : boolean{
+    return students.some((student)=> student.score < 60);
+}
+// //---------------------------------------------//
 
 
-//every
-//---------------------------------------------//
-const allAbove50 = students.every((student)=>student.score > 50);
-console.log("All scored greater than or equal to half : ", allAbove50)
-//---------------------------------------------//
+// //every
+// //---------------------------------------------//
+export function allAbove50(students: Student[]){
+    return students.every((student)=> student.score > 50);
+}
+// //---------------------------------------------//
