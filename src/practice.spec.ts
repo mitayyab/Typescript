@@ -54,8 +54,12 @@ describe("practice", () => {
     });
 
     describe("didAnyFail", ()=>{
-        it("should return boolean as answer", ()=> {
+        it("should return true if any of the student got score less than 60", ()=> {
             expect(didAnyFail(students)).toEqual(true);
+        })
+
+        it("should return false if none of the student got score less than 60", ()=> {
+            expect(didAnyFail(students.filter(s => s.score >= 60))).toEqual(false);
         })
     });
 
